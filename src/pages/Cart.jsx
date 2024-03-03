@@ -7,6 +7,8 @@ import { CommonButton } from "../components/ProductDetail";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { reduceProduct, incrementProduct } from "../store/CartSlice"
+import Modal from "../components/modal/CartModal";
+import { useState } from "react";
 
 const Cart = ({ category }) => {
   
@@ -14,12 +16,17 @@ const Cart = ({ category }) => {
     category: PropTypes.string.isRequired,
   }
 
+  const [openModal, setOpenModal] = useState(false);
+
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.products);
   const productsPriceSum = products.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
 
   return (
     <MainContainer>
+      {
+        openModal ? <Modal closeModal={setOpenModal} /> : null
+      }
       <Header />
       <ContentsWrap>
         <ContentsContainer>
@@ -72,7 +79,7 @@ const Cart = ({ category }) => {
 
                 <CalcContainer>
                   <CalcTotalPrice>{`총 : $(${Math.round(productsPriceSum).toLocaleString('ko-KR')})`}</CalcTotalPrice>
-                  <PurchaseButton>구매하기</PurchaseButton>
+                    <PurchaseButton onClick={() => { setOpenModal(true) }}>구매하기</PurchaseButton>
                 </CalcContainer>
                 
               </CartItemsContainer>
@@ -102,8 +109,11 @@ const EmptyText = styled.h2`
 
 const CartItemsContainer = styled.div`
   display: flex;
-  border: 1px solid red;
-  margin-top: 60px;
+  margin: 60px 0;
+  
+  @media (max-width: 1060px) {
+    flex-direction: column;
+  }
 `;
 
 const ItemWrap = styled.div`
@@ -114,6 +124,10 @@ const ItemWrap = styled.div`
 
 const ItemContainer = styled.div`
   display: flex;
+  
+  @media (max-width: 1350px) {
+    flex-direction: column;
+  }
 `;
 
 const ItemImageContainer = styled.div`
@@ -136,8 +150,13 @@ const ItemDescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  border: 1px solid green;
   padding: 20px;
+
+  @media (max-width: 1350px) {
+    flex-direction: column;
+    gap: 20px;
+  }
+
 `;
 
 const ItemName = styled.p`

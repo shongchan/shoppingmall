@@ -52,7 +52,6 @@ const Container = styled.div`
     padding: 20px;
   }
 
-  border: 1px solid yellow;
 `;
 
 export default Accessory;

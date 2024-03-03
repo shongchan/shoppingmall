@@ -9,6 +9,11 @@ export const CartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    initiateCart: (state, action) => {
+      state.products = [];
+      localStorage.setItem("cart", JSON.stringify([]));
+    },
+
     addToCart: (state, action) => {
       const item = state.products.find((item) => item.id === action.payload.id);
       if (item) {
@@ -46,5 +51,5 @@ export const CartSlice = createSlice({
   },
 });
 
-export const { addToCart, reduceProduct, incrementProduct } = CartSlice.actions;
+export const { initiateCart, addToCart, reduceProduct, incrementProduct } = CartSlice.actions;
 export default CartSlice.reducer;

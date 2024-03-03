@@ -51,7 +51,6 @@ const Container = styled.div`
     width: 100%;
   }
 
-  border: 1px solid yellow;
 `;
 
 export default Digital;

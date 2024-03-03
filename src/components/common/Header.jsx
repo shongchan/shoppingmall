@@ -3,15 +3,22 @@ import { Link } from "react-router-dom";
 import { IoCartOutline } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useSelector } from "react-redux";
+import HamburgerModal from "../modal/HamburgerModal";
+import { useState } from "react";
 
 const Header = () => {
 
   const products = useSelector((state) => state.cart.products);
 
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <Container>
+      {
+        openModal ? <HamburgerModal closeModal={setOpenModal} /> : null
+      }
       <Nav>
-        <HambergerMenu><RxHamburgerMenu/></HambergerMenu>
+        <HambergerMenu><RxHamburgerMenu onClick={() => { setOpenModal(true); console.log('test'); }} /></HambergerMenu>
         <Title><Link to="/">Shong&apos;s Shop</Link></Title>
         <NavMenu>
           <Link to="/fashion"><NavMenuCategory>패션</NavMenuCategory></Link>
@@ -19,8 +26,8 @@ const Header = () => {
           <Link to="/digital"><NavMenuCategory>디지털</NavMenuCategory></Link>
         </NavMenu>
         <NavMenuSide>
-          <ModeChangeBtn type="checkbox"></ModeChangeBtn>
-          <SearchInput type="input" placeholder="검색"></SearchInput>
+          {/* <ModeChangeBtn type="checkbox"></ModeChangeBtn> */}
+          <SearchInput type="input" placeholder="검색"></SearchInput> {/* TODO: 검색창 기능 구현*/}
           <CartBtn><Link to="/cart"><IoCartOutline /><CartNum>{products.length > 0 ? products.reduce((acc, cur) => acc + cur.quantity, 0) : 0}</CartNum></Link></CartBtn>
         </NavMenuSide>
       </Nav>
@@ -181,7 +188,6 @@ export const ContentsContainer = styled.div`
   min-height: 560px;
   margin: 0 auto;
   padding-top: 80px;
-  border: 1px solid yellow;
   background-color: #13306f;
 `;
 

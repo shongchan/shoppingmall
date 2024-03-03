@@ -15,6 +15,7 @@ const ProductDetail = () => {
   const { id } = useParams();
   
   const dispatch = useDispatch();
+
   // useEffect(() => {
   //   dispatch(fetchProdWithId(id));
   //   console.log(title, image, price, description, rating);
@@ -40,7 +41,7 @@ const ProductDetail = () => {
               </ProductNameContainer>
               <ProductDescription>{description}</ProductDescription>
               <RatingContainer>
-                <RatingStar>⭐⭐⭐⭐⭐</RatingStar>
+                <RatingStar>⭐⭐⭐⭐⭐</RatingStar> {/* TODO: 별점 표현 */} 
                 <RatingText>{rating["rate"]} / {rating["count"]} 참여</RatingText>
               </RatingContainer>
               <ProductPrice>{`$${Math.round(price).toLocaleString('ko-KR')}$`}</ProductPrice>
@@ -97,7 +98,6 @@ const DescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid yellow;
   width:100%;
   padding: 40px 30px;
 
@@ -172,7 +172,7 @@ export const CommonButton = styled.button`
   }
 `
 
-const MoveCartPage = styled.button`
+export const MoveCartPage = styled.button`
   color: #fff;
   font-family: 'Pretendard-Regular';
   font-size: 16px;
